@@ -1,6 +1,15 @@
 from django.contrib import admin
-from .models import Product, Order
+from .models import Product, Order, Cart, CartItem, OrderItem
 
-admin.site.register(Product)
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'price')
+
+
+
+
+
+
+admin.site.register(Product, ProductAdmin)
 admin.site.register(Order)
-# Register your models here.
+admin.site.register(Cart)

@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 class Product(models.Model):
     name = models.CharField(max_length=100)
+    description = models.TextField(default=" ")
     price = models.FloatField()
-    stock = models.IntegerField()
     image_url = models.URLField()
 
     def __str__(self):
@@ -18,7 +18,7 @@ class Order(models.Model):
     postal_code = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
     paid = models.BooleanField(default=False)
-    items = models.ManyToManyField('Product')
+    items = models.ManyToManyField(Product, through='OrderItem')
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -29,3 +29,21 @@ class Order(models.Model):
 
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
+    def get_total_items(self):
+        return sum(item.quantity for item in self.items.all())
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+
+class Cart(models.Model):
+    items = models.ManyToManyField(Product, through='CartItem')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
