@@ -2,14 +2,23 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from mart.models import Product, Order
 
+
+def is_seller(user):
+    return user.groups.filter(name='seller').exists()
 # Create your views here.
 def home(request):
     return render(request, 'index.html')
 
 @login_required
-def product(request):
+def products(request):
     products = Product.objects.all()
-    return render(request, 'product.html', {'products': products})
+    return render(request, 'products.html', {'products': products})
+
+
+@login_required
+def product(request, id):
+    product = Product.objects.get(id=id)
+    return render(request, 'product.html', {'product': product})
 
 @login_required
 def cart(request):
@@ -26,11 +35,16 @@ def order(request):
 
 @login_required
 def new_product(request):
-    return render(request, 'new_product.html')
+    if is_seller(request.user):
+        return render(request, 'new_product.html')
+    else:
+        return redirect('products')
 
 @login_required
 def create_product(request):
     if request.method == 'POST':
+        if not is_seller(request.user):
+            return redirect('products')
         name = request.POST['name']
         description = request.POST['description']
         price = request.POST['price']
