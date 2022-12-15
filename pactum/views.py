@@ -7,6 +7,8 @@ def is_seller(user):
     return user.groups.filter(name='seller').exists()
 # Create your views here.
 def home(request):
+    if request.user.is_authenticated:
+        return redirect('products')
     return render(request, 'index.html')
 
 @login_required
@@ -21,12 +23,20 @@ def product(request, id):
     return render(request, 'product.html', {'product': product})
 
 @login_required
-def cart(request):
-    return render(request, 'cart.html')
+def checkout(request):
+    if request.method == 'POST':
+        address = request.POST['address']
+        user = request.user
+        Order.objects.create(user=user, address=address)
+        return redirect('order')
+    else:
+        return redirect('products')
+
 
 @login_required
-def checkout(request):
-    return render(request, 'checkout.html')
+def create_order(request,id):
+    product = Order.objects.get(id=id)
+    return render(request, 'create_order.html', {'product': product})
 
 @login_required
 def order(request):

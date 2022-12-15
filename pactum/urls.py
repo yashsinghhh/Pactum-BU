@@ -15,18 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import home, products, cart, checkout, order, new_product, create_product, product
+from .views import home, products, checkout, order, new_product, create_product, product, create_order
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("",home),
     path('accounts/', include('allauth.urls')),
-    path("products/", products),
-    path("cart/", cart),
+    path("products/", products, name="products"),
     path("checkout/", checkout),
     path("order/", order),
     path("new_product/", new_product),
     path("create_product/", create_product),
     path("product/<int:id>", product),
+    path("create_order/<int:id>", create_order),
 ]
