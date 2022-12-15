@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Product(models.Model):
@@ -12,32 +13,31 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+class OrderItem(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.item.name}: {self.quantity}"
+
+    def price(self):
+        return self.quantity * self.item.price
+
 
 class Order(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
-    address = models.CharField(max_length=250)
-    postal_code = models.CharField(max_length=20)
-    city = models.CharField(max_length=100)
-    paid = models.BooleanField(default=False)
-    items = models.ManyToManyField(Product)
-    created = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ('-created',)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    items = models.ManyToManyField(OrderItem)
+    date = models.DateTimeField(auto_now_add=True)
+    address = models.CharField(max_length=1000, default=' ')
+    status = models.CharField(max_length=100, default='Pending')
 
     def __str__(self):
         return f'Order {self.id}'
 
     def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
-
-
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
+        return sum(item.price() for item in self.items.all())
 
 
 class Cart(models.Model):
