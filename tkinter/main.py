@@ -38,10 +38,16 @@ def login():
     password = password_validation.get()
     cur.execute("SELECT * FROM account WHERE email = ? AND password = ?", (user_email, password))
     data = cur.fetchall()
+    response = customtkinter.CTkToplevel(app)
+    response.geometry("400x400")
     if len(data) > 0:
-        print("Login successful")
+        res_label = customtkinter.CTkLabel(master=response, text="Login successful", justify=tkinter.CENTER, anchor=tkinter.CENTER, font=("Arial", 20, "bold"))
+        res_label.pack(pady=10, padx=10, side="top", fill="both", expand=True)
     else:
-        print("Login failed")
+        res_label = customtkinter.CTkLabel(master=response, text="Login Failed", justify=tkinter.CENTER, anchor=tkinter.CENTER, font=("Arial", 20, "bold"))
+        res_label.pack(pady=10, padx=10, side="top", fill="both", expand=True)
+        
+        res_label.after(3000, lambda: response.destroy())
     
 
 login_button = customtkinter.CTkButton(master=frame_2, text="Login", command=login)
