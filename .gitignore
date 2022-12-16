@@ -7,7 +7,7 @@ media
 staticfiles/
 # Backup files # 
 *.bak 
-
+static/admin/
 # If you are using PyCharm # 
 # User-specific stuff
 .idea/**/workspace.xml

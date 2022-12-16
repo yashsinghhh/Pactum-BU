@@ -1,11 +1,11 @@
 {% load static %}
 
-
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static "style.css" %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,7 @@
         <button class="cont">Contact Us</button>
         <div class="wrapper">
             <header class="logtxt">Login</header>
-            <form class="login" method="POST" action="">
+            <!--<form class="login" method="POST" action="">
               <div class="field email">
                 <div class="input-area">
                   <input type="text" placeholder="Email Address" class="emailtxt">
@@ -41,6 +41,15 @@
               </div>
               <div class="pass-txt"><a href="#">Forgot password?</a></div>
               <input type="submit" value="Login">
+            </form>-->
+            <form class="login" method="POST" action="{% url 'account_login' %}">
+              {% csrf_token %}
+              {{ form.as_p }}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+              <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
             </form>
             <div class="sign-txt">Not yet member? <a href="#">Signup now</a></div>
   </div>

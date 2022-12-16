@@ -129,7 +129,7 @@ header .cont{
       margin-left: 12px;
     }
   }
-  form .field .input-area{
+  input[name="login"], input[name="password"]{
     height: 50px;
     width: 100%;
     position: relative;
@@ -155,19 +155,19 @@ header .cont{
   form .field.error input{
     border-color: #dc3545;
   }
-  .field .input-area i{
+  input[name="login"], input[name="password"] i{
     position: absolute;
     top: 50%;
     font-size: 18px;
     pointer-events: none;
     transform: translateY(-50%);
   }
-  .input-area .icon{
+  input[name="login"], input[name="password"] .icon{
     left: 15px;
     color: #bfbfbf;
     transition: color 0.2s ease;
   }
-  .input-area .error-icon{
+  input[name="login"], input[name="password"] .error-icon{
     right: 15px;
     color: #dc3545;
   }
