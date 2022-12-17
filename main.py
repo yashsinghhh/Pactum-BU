@@ -63,9 +63,9 @@ def login():
                 s= seller.seller(app, user_name, user_id, cur)
                 s.create_frame(frame_2)
             else:
-                pass    
-                #import buyer
-                #buyer.buyer.create_frame(frame_2,app)
+                import buyer
+                b = buyer.buyer(app, user_name, user_id, cur)
+                b.create_frame(frame_2)              
 
         proceed_button = customtkinter.CTkButton(master=response, text="Proceed", command=proceed)
         proceed_button.pack(pady=10, padx=10, side="top", expand=True)  
