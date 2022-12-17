@@ -8,35 +8,35 @@ user_name = ""
 user_id = 0
 seller=False
 
-connection=sqlite3.connect("./database.db")
+connection=sqlite3.connect("./database.db",isolation_level=None)
 cur= connection.cursor()
 customtkinter.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
 app = customtkinter.CTk()
-app.geometry("400x400")
+app.geometry("800x800")
 app.title("PactumBU")
 
 
 frame_1 = customtkinter.CTkFrame(master=app)
 frame_1.pack(pady=20, padx=60, fill="both", expand=True)
 
-label_1 = customtkinter.CTkLabel(master=frame_1, text="PactumBU", justify=tkinter.CENTER, anchor=tkinter.CENTER, font=("Arial", 20, "bold"))
+label_1 = customtkinter.CTkLabel(master=frame_1, text="PactumBU", justify=tkinter.CENTER, anchor=tkinter.CENTER, font=("Arial", 40, "bold"))
 label_1.pack(pady=10, padx=10, side="top", fill="both", expand=True)
 
-label_2 = customtkinter.CTkLabel(master=frame_1, text="Loading...", justify=tkinter.CENTER, anchor=tkinter.CENTER, font=("Arial", 10, "bold"))
+label_2 = customtkinter.CTkLabel(master=frame_1, text="Loading...", justify=tkinter.CENTER, anchor=tkinter.CENTER, font=("Arial", 20, "bold"))
 label_2.pack(padx=10, side="top", fill="both", expand=True)
 frame_2 = customtkinter.CTkFrame(master=app)
 
 
-login_label = customtkinter.CTkLabel(master=frame_2, text="Login", justify=tkinter.CENTER, anchor=tkinter.CENTER, font=("Arial", 20, "bold"))
+login_label = customtkinter.CTkLabel(master=frame_2, text="Login", justify=tkinter.CENTER, anchor=tkinter.CENTER, font=("Arial", 40, "bold"))
 login_label.pack(pady=10, padx=10, side="top", fill="both", expand=True)
 
-email = customtkinter.CTkEntry(master=frame_2, height=14, placeholder_text="Email")
-email.pack(pady=10, padx=10, side="top", expand=True)
+email = customtkinter.CTkEntry(master=frame_2, height=50, placeholder_text="Email")
+email.pack(pady=10, padx=10, side="top", fill="x")
 
-password_validation = customtkinter.CTkEntry(master=frame_2, show="*", placeholder_text="Password")
-password_validation.pack(pady=10, padx=10, side="top", expand=True)
+password_validation = customtkinter.CTkEntry(master=frame_2, height=50, show="*", placeholder_text="Password")
+password_validation.pack(pady=10, padx=10, side="top", fill="x")
 
 def login():
     global user_name

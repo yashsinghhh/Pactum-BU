@@ -19,14 +19,11 @@ class seller(user):
         tabview.set("Your Products")  # set currently visible tab
         canvas = tk.Canvas(tabview.tab("Your Products"),  background=tabview.tab("Your Products")["bg"], bd=0, highlightthickness=0)
         canvas.pack(side="left", fill="x")
-        scrollbar = customtkinter.CTkScrollbar(tabview.tab("Your Products"), orientation="vertical", command=canvas.yview)
-        scrollbar.pack(side="right", fill="y")
-        canvas.configure(yscrollcommand=scrollbar.set)
         self.cursor.execute(f"SELECT * FROM products WHERE seller_id = {self.id}")
         products = self.cursor.fetchall()
         for product in products:
             products_frame = customtkinter.CTkFrame(canvas)
-            products_frame.pack(pady=10, padx=10, fill="both", expand=True)
+            products_frame.pack(pady=10, padx=10, fill="x")
             my_image = customtkinter.CTkImage(light_image=Image.open(f"{product[2]}.png"),
                                             dark_image=Image.open(f"{product[2]}.png"),
                                             size=(100, 100))
@@ -38,18 +35,15 @@ class seller(user):
             product_price.grid(row=0, column=2, padx=10, pady=0, ipady=10)
         #button_1 = customtkinter.CTkButton(canvas, text="Add Product")
         #button_1.pack(padx=20, pady=20)
-        canvas2 = tk.Canvas(tabview.tab("Your Orders"),  background=tabview.tab("Your Orders")["bg"], bd=0, highlightthickness=0)
+        canvas2 = tk.Canvas(tabview.tab("Your Orders"), background=tabview.tab("Your Orders")["bg"], bd=0, highlightthickness=0)
         canvas2.pack(side="left", fill="x")
-        scrollbar2 = customtkinter.CTkScrollbar(tabview.tab("Your Orders"), orientation="vertical", command=canvas.yview)
-        scrollbar2.pack(side="right", fill="y")
-        canvas2.configure(yscrollcommand=scrollbar.set)
         self.cursor.execute(f"SELECT * FROM orders WHERE seller_id = {self.id}")
         orders = self.cursor.fetchall()
         for order in orders:
             self.cursor.execute(f"SELECT * FROM products WHERE id = {order[1]}")
             product = self.cursor.fetchall()[0]
             order_frame = customtkinter.CTkFrame(canvas2)
-            order_frame.pack(pady=10, padx=10, fill="both", expand=True)
+            order_frame.pack(pady=10, padx=10, fill="x")
             my_image = customtkinter.CTkImage(light_image=Image.open(f"{product[2]}.png"),
                                             dark_image=Image.open(f"{product[2]}.png"),
                                             size=(100, 100))
