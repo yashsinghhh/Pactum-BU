@@ -1,4 +1,4 @@
-import tkinter
+import tkinter as tk
 import customtkinter
 
 
@@ -13,15 +13,19 @@ class seller():
         previous_frame.destroy()
         frame = customtkinter.CTkFrame(master=self.main)
         frame.pack(pady=10, padx=30, fill="both", expand=True)
-        name = customtkinter.CTkLabel(master=frame, text=f"Hello {self.name}!", justify=tkinter.CENTER, font=("Arial", 20, "bold"))
+        name = customtkinter.CTkLabel(master=frame, text=f"Hello {self.name}!", justify=tk.CENTER, font=("Arial", 20, "bold"))
         name.pack(pady=5, padx=5)
         tabview = customtkinter.CTkTabview(frame)
         tabview.pack(padx=5, pady=5, fill= "both", expand=True)
         tabview.add("Your Products")  # add tab at the end
         tabview.add("Your Orders")  # add tab at the end
         tabview.set("Your Products")  # set currently visible tab
+        canvas = tk.Canvas(tabview.tab("Your Products"),  background=tabview.tab("Your Products")["bg"], bd=0, highlightthickness=0)
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar = customtkinter.CTkScrollbar(tabview.tab("Your Products"), orientation="vertical", command=canvas.yview)
+        scrollbar.pack(side="right", fill="y")
 
-        button_1 = customtkinter.CTkButton(tabview.tab("Your Products"), text="Add Product")
+        button_1 = customtkinter.CTkButton(canvas, text="Add Product")
         button_1.pack(padx=20, pady=20)
 
 
