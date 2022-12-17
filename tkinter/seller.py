@@ -2,7 +2,7 @@ import tkinter
 import customtkinter
 
 
-class seller(customtkinter.CTk):
+class seller():
     def __init__(self, masterwin, name, id):
         self.main = masterwin
         self.name = name
