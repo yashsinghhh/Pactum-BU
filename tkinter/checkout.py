@@ -7,7 +7,7 @@ window.title("Order Product")
 
 # Load the image file
 image = PhotoImage(
-    file="/home/itsomsarraf/Documents/GitHub/Pactum-BU/tkinter/product.png")
+    file="./product.png")
 
 # Create label and entry widgets for name, description, address, and phone number
 name_label = tk.Label(text="Name:")
@@ -39,3 +39,4 @@ order_button.pack(pady=5)
 
 # Run the main loop
 window.mainloop()
+    
