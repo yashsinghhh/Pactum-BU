@@ -51,7 +51,7 @@ def login():
     if len(data) > 0:
         user_name = data[0][1]
         user_id = data[0][0]
-        if data[0][3] == 1:
+        if data[0][4] == 1:
             seller = True
         res_label = customtkinter.CTkLabel(master=response, text="Login successful", justify=tkinter.CENTER, anchor=tkinter.CENTER, font=("Arial", 20, "bold"))
         res_label.pack(pady=10, padx=10, side="top", fill="both", expand=True)
@@ -60,7 +60,7 @@ def login():
             response.destroy()
             if seller:
                 import seller
-                s= seller.seller(app, user_name, user_id)
+                s= seller.seller(app, user_name, user_id, cur)
                 s.create_frame(frame_2)
             else:
                 pass    
