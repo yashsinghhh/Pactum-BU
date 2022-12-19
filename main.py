@@ -100,6 +100,4 @@ def remove_splash():
 
 
 label_1.after(2000, remove_splash)
-
-
-app.mainloop()
+# app.mainloop()
