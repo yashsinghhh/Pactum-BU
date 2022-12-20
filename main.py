@@ -1,8 +1,6 @@
 import tkinter
 import customtkinter
 import sqlite3
-import time
-
 
 user_name = ""
 user_id = 0
